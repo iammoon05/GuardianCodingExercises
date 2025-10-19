@@ -24,4 +24,31 @@ class Scrabble {
         }
         return result
     }
+
+    fun validWords(playerRack: CharArray, dictionary: ArrayList<String>) : ArrayList<String> {
+        val rackCount = IntArray(26){0}
+        for (c in playerRack) {
+            rackCount[c - 'A']++
+        }
+        val result: ArrayList<String> = ArrayList<String>()
+
+        for (word in dictionary) {
+            val currentWordCharCount = IntArray(26){0}
+            for (c in word.toCharArray()) {
+                currentWordCharCount[c - 'A']++
+            }
+
+            var valid = true
+            for (i in 0..26) {
+                if (rackCount[i] < currentWordCharCount[i]) {
+                    valid = false
+                    break
+                }
+            }
+            if (valid) {
+                result.add(word)
+            }
+        }
+        return result
+    }
 }
